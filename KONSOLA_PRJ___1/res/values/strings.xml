@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Dom Controller</string>
+    <string name="action_settings">Ustawienia</string>
+    <string name="backToTop">Wróć na początek</string>
+    <string name="goToBottom">Idź na koniec</string>
+
+</resources>

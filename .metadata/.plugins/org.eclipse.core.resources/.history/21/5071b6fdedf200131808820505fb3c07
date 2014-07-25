@@ -1,0 +1,25 @@
+package com.zinga.stockportfolio;
+
+import java.util.ArrayList;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.Menu;
+
+public class ViewStocks extends Activity {
+	
+	private ArrayList<Stock> stocks;
+	
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.main);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.view_stocks, menu);
+        return true;
+    }  
+}

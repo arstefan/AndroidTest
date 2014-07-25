@@ -1,0 +1,54 @@
+package com.zinga.stockportfolio;
+
+import java.util.ArrayList;
+
+import android.app.ListActivity;
+import android.content.ComponentName;
+import android.content.ServiceConnection;
+import android.os.Bundle;
+import android.os.IBinder;
+import android.view.Menu;
+
+import com.zinga.stockportfolio.service.IStockService;
+
+public class ViewStocks extends ListActivity {
+	
+	private ArrayList<Stock> stocks;
+	private IStockService stockService;
+	
+	
+	public void onStart(Bundle savedInstanceState){
+		
+	}
+	
+	private ServiceConnection connection = new ServiceConnection() {
+		
+		@Override
+		public void onServiceDisconnected(ComponentName name) {
+			// TODO Auto-generated method stub
+			
+		}
+		
+		@Override
+		public void onServiceConnected(ComponentName name, IBinder service) {
+			// TODO Auto-generated method stub
+			
+		}
+	};
+	
+	
+	
+	
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.main);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.view_stocks, menu);
+        return true;
+    }  
+}

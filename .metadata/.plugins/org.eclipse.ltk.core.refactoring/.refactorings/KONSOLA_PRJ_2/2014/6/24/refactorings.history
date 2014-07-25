@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Move element &apos;IStockService.aidl&apos; to &apos;StockPortfolio/src/com.zinga.stockportfolio.service&apos;&#x0D;&#x0A;- Original project: &apos;StockPortfolio&apos;&#x0D;&#x0A;- Destination element: &apos;StockPortfolio/src/com.zinga.stockportfolio.service&apos;&#x0D;&#x0A;- Original element: &apos;IStockService.aidl&apos;&#x0D;&#x0A;- Update references to refactored element" description="Move file" destination="/src&lt;com.zinga.stockportfolio.service" element1="src/com/zinga/stockportfolio/IStockService.aidl" files="1" flags="589830" folders="0" id="org.eclipse.jdt.ui.move" policy="org.eclipse.jdt.ui.moveResources" qualified="false" references="true" stamp="1402649129205" units="0" version="1.0"/>
+</session>

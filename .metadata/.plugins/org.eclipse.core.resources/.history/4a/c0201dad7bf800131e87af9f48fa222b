@@ -1,0 +1,98 @@
+package com.zinga.stockportfolio;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import android.app.Service;
+import android.content.Intent;
+import android.os.IBinder;
+import android.os.RemoteException;
+import android.util.Log;
+
+import com.zinga.stockportfolio.service.IStockService;
+
+public class PortfolioManagerService extends Service{
+	
+	private final StocksDb db = new StocksDb(this);
+	private long timestamp = 0L;
+	private static final int MAX_CACHE_AGE = 15*60*1000;
+	
+	
+	/*
+	 * (non-Javadoc)
+	 * @see android.app.Service#onStartCommand(android.content.Intent, int, int)
+	 * 
+	 * Za pomoc¹ tej metody mo¿na przes³aæ do poraz pierwszy uruchomionej us³ugi dodatkowe parametry 
+	 * 
+	 * 
+	 */
+	
+	@Override
+	public int onStartCommand(Intent intent, int flags, int startId) {
+		// TODO Auto-generated method stub
+		return super.onStartCommand(intent, flags, startId);
+	}
+	
+	@Override
+	public void onCreate() {
+		// TODO Auto-generated method stub
+		super.onCreate();
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see android.app.Service#onBind(android.content.Intent)
+	 * 
+	 * metoda umozliwia komunikowanie siê aktywnoœciom oraz innym us³ugom na kontakt z t¹ us³ug¹
+	 * 
+	 */
+	
+	@Override
+	public IBinder onBind(Intent intent) {
+		// TODO Auto-generated method stub
+		
+		
+		System.out.println("Bindowanie serwisu...");
+		return new IStockService.Stub() {
+			
+			@Override
+			public List<Stock> getPortfolio() throws RemoteException {
+				// TODO Auto-generated method stub
+				ArrayList<Stock> stocks = db.getStocks();
+				long currTime = System.currentTimeMillis();
+				if(currTime - timestamp <= MAX_CACHE_AGE){
+					return stocks;
+				}
+				Stock[] currStocks = new Stock[stocks.size()];
+				stocks.toArray(currStocks);
+				try{
+					ArrayList<Stock> newStocks = fetchStockData(currStocks);
+					updateStockData(newStocks);
+					return newStocks;
+				} catch(Exception e){
+					Log.e("PortfolioManagerService","Wyst¹pi³ wyj¹tek podczas pobierania danych",e);
+					throw new RemoteException();
+				}
+				
+				
+				
+				
+			}
+			
+			@Override
+			public Stock addToPortfolio(Stock stock) throws RemoteException {
+				// TODO Auto-generated method stub
+				Stock s = db.addStock(stock);
+				updateStockData();
+				return s;
+			}
+		};
+	}
+	
+	@Override
+	public void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+	}
+
+}
